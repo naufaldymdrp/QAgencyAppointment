@@ -1,5 +1,14 @@
+using QAgencyAppointment.DataAccess;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Routing;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<ApplicationDbContext>(
+    options => options.UseSqlite("Data Source=Database.db")
+);
+
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
