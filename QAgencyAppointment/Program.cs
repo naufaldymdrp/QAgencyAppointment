@@ -46,6 +46,8 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+app.UseRouting();
+
 app.MapControllers();
 
 app.Run();
