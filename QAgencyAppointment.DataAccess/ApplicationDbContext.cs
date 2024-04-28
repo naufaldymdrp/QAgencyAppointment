@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,11 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
 
-    public DbSet<UserEntity> Users { get; set; }
+    // protected override void OnModelCreating(ModelBuilder builder)
+    // {
+    // }
 
-    public DbSet<AppointmentEntity> Appointments { get; set; }
+    // public DbSet<UserEntity> Users { get; set; }
+
+    // public DbSet<AppointmentEntity> Appointments { get; set; }
 }
