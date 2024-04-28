@@ -17,7 +17,9 @@ public class ApplicationDbContext : IdentityDbContext
     // {
     // }
 
-    // public DbSet<UserEntity> Users { get; set; }
-
-    // public DbSet<AppointmentEntity> Appointments { get; set; }
+    public DbSet<AppointmentEntity> Appointments { get; set; }
+    
+    public DbSet<RoomEntity> Rooms { get; set; }
+    
+    public DbSet<AppointmentRoomEntity> AppointmentRooms { get; set; }
 }
