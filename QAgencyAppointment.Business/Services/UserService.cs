@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using QAgencyAppointment.Business.Dtos;
 using QAgencyAppointment.Business.Interface;
 using QAgencyAppointment.DataAccess.Interfaces;
@@ -17,8 +18,13 @@ public class UserService : IUserService
         _tokenService = tokenService;
     }
 
-    public async Task<string?> Authenticate(UserDto user)
+    public async Task<string?> Authenticate(LoginDto user)
     {
+        if (user.Username.IsNullOrEmpty() || user.Password.IsNullOrEmpty())
+        {
+            return null;
+        }
+        
         IdentityUser? userEntity = await _userRepository.FindByUsernameAsync(user.Username);
         if (userEntity is null)
         {

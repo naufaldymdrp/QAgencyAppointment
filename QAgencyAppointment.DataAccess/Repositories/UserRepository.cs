@@ -16,6 +16,9 @@ public class UserRepository : IUserRepository
         _userManager = userManager;
     }
 
+    public async Task<IdentityUser> FindByUserIdAsync(string userId)
+        => await _userManager.FindByIdAsync(userId);
+
     public async Task<IdentityUser?> FindByUsernameAsync(string username)
         => await _userManager.FindByNameAsync(username);
 

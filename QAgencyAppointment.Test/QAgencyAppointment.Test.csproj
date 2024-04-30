@@ -21,4 +21,13 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Constants" />
+    <Folder Include="RepositoryTests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\QAgencyAppointment.Business\QAgencyAppointment.Business.csproj" />
+  </ItemGroup>
+
 </Project>

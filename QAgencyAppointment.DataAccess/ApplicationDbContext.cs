@@ -13,13 +13,24 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
 
-    // protected override void OnModelCreating(ModelBuilder builder)
-    // {
-    // }
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        // Configures relationship between AppointmentUserEntity to IdentityUser since IdentityUser does not have
+        // navigation property to AppointmentUserEntity
+        builder.Entity<AppointmentUserEntity>()
+            .HasOne(s => s.IdentityUser)
+            .WithMany()
+            .HasForeignKey(e => e.UserEntityId)
+            .IsRequired();
+        
+        base.OnModelCreating(builder);
+    }
 
     public DbSet<AppointmentEntity> Appointments { get; set; }
     
     public DbSet<RoomEntity> Rooms { get; set; }
+    
+    public DbSet<AppointmentUserEntity> AppointmentUsers { get; set; }
     
     public DbSet<AppointmentRoomEntity> AppointmentRooms { get; set; }
 }

@@ -25,7 +25,7 @@ public class UserController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] UserDto userDto)
+    public async Task<IActionResult> Login([FromBody] LoginDto userDto)
     {
         string? token = await _userService.Authenticate(userDto);
         if (token is null) return Unauthorized();

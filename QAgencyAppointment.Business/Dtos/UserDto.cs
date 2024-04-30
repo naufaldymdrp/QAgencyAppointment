@@ -1,8 +1,12 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace QAgencyAppointment.Business.Dtos;
 
-public record class UserDto
+public class UserDto
 {
-    public required string Username { get; init; }
-
-    public required string Password { get; init; }
+    public string Username { get; set; }
+    
+    public string Email { get; set; }
+    
+    public List<IdentityRole>? Roles { get; set; }
 }

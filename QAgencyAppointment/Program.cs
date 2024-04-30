@@ -1,4 +1,5 @@
 using System.Text;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using QAgencyAppointment.DataAccess;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using QAgencyAppointment.DataAccess.Repositories;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using QAgencyAppointment.Business.Profiles;
 using QAgencyAppointment.DataAccess.Seedings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,9 +34,16 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 // Registers repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IAppointmentUserRepository, AppointmentUserRepository>();
 
 // Data seeding
 builder.Services.AddScoped<ISeeding, DataSeeding>(); 
+
+// Mapper profile
+MapperConfiguration mapperConfig = new MapperConfiguration(config => config.AddProfile<MapperProfile>());
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 // Registers business logic
 builder.Services.AddSingleton<TokenService>();
@@ -113,6 +122,10 @@ using (var scope = app.Services.CreateScope())
     seeding.SeedRoles();
     seeding.SeedUsers();
     seeding.SeedUserRoles();
+    
+    // Seed appointment-related data
+    seeding.SeedAppointments();
+    seeding.SeedAppointmentUsers();
 }
 
 // Configure the HTTP request pipeline.

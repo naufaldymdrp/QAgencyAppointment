@@ -4,6 +4,6 @@ namespace QAgencyAppointment.Business.Interface;
 
 public interface IUserService
 {
-    Task<string?> Authenticate(UserDto user);
+    Task<string?> Authenticate(LoginDto user);
 }
 
