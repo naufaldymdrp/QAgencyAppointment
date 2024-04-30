@@ -42,8 +42,11 @@ public class AppointmentRepository : IAppointmentRepository
 
     public List<AppointmentEntity> GetAllUpcomingAppointments()
         => _dbContext.Appointments
-            .Where(x => !x.IsDeleted && x.StarTime >= DateTime.Now)
+            .Include(x => x.AppointmentUsers)
+            .Where(x => !x.IsDeleted && x.StarTime <= DateTime.Now.AddHours(-2))
+            .OrderByDescending(x => x.Id)
             .ToList();
+    
 
     public List<AppointmentEntity> GetAppointmentsByStartMeetingTime(DateTime startInterval, DateTime endInterval)
         => _dbContext.Appointments
