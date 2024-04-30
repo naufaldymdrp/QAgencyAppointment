@@ -50,6 +50,8 @@ builder.Services.AddSingleton<TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
+builder.Configuration.GetSection("JwtOptions:Issuer");
+
 // Authentication and authorization
 builder.Services.AddAuthentication(options =>
     {
@@ -59,16 +61,16 @@ builder.Services.AddAuthentication(options =>
     })
     .AddJwtBearer(options =>
     {
-        byte[] keyBytes = Encoding.UTF8.GetBytes("Q2VsbEN1bHR1cmVTdWl0ZUFQSQf35Ha2gh");
+        byte[] secretKey = Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JwtOptions:SecretKey").Value);
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "QAgencyAppointment",
-            ValidAudience = "*",
-            IssuerSigningKey = new SymmetricSecurityKey(keyBytes)
+            ValidIssuer = builder.Configuration.GetSection("JwtOptions:Issuer").Value,
+            ValidAudience = builder.Configuration.GetSection("JwtOptions:Audience").Value,
+            IssuerSigningKey = new SymmetricSecurityKey(secretKey)
         };
     });
 // builder.Services.AddAuthorization();
