@@ -79,7 +79,7 @@ public class AppointmentService : IAppointmentService
         return true;
     }
     
-    public async Task<List<AppointmentDtoResponse>> GetAllAppointments(bool upcomingAppointment = true)
+    public async Task<List<AppointmentDtoResponse>> GetAllAppointments(bool upcomingAppointment = false)
     {
         List<AppointmentEntity> appointmentEntities = upcomingAppointment ? 
             _appointmentRepository.GetAllUpcomingAppointments() : _appointmentRepository.GetAllAppointments();
