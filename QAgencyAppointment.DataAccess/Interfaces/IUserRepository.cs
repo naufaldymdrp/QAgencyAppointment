@@ -9,6 +9,10 @@ public interface IUserRepository
     Task<IdentityUser> FindByUsernameAsync(string username);
 
     Task<bool> CheckPasswordAsync(IdentityUser user, string password);
-
+    
     Task<IList<string>> GetAllRoleNamesByUserAsync(IdentityUser user);
+    
+    Task<IList<string>> GetRoleNamesByUserAsync(IdentityUser userEntity);
+
+    Task<IList<string>> GetRoleNamesByUserIdAsync(string userId);
 }

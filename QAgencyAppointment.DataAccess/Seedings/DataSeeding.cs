@@ -63,12 +63,13 @@ public class DataSeeding : ISeeding
     public bool SeedRoles()
     {
         List<IdentityRole> roleSeeds = RoleSeeds;
+        int seedCount = roleSeeds.Count();
         
         // Remove role seeds that already exist in the database
         int deletedSeeds = roleSeeds.RemoveAll( 
             rs => _dbContext.Roles.Any(r => r.Name.Equals(rs.Name)));
 
-        if (deletedSeeds < roleSeeds.Count())
+        if (deletedSeeds < seedCount)
         {
             _dbContext.Roles.AddRange(roleSeeds);
             _dbContext.SaveChanges(); // blocking
@@ -201,6 +202,11 @@ public class DataSeeding : ISeeding
                 {
                     RoleId = CustomerRoleId,
                     UserId = Customer1UserId
+                },
+                new()
+                {
+                    RoleId = CustomerRoleId,
+                    UserId = Customer2UserId
                 }
             };
 
@@ -211,12 +217,13 @@ public class DataSeeding : ISeeding
     public bool SeedUserRoles()
     {
         List<IdentityUserRole<string>> userRoleSeeds = UserRoleSeeds;
+        int seedCount = userRoleSeeds.Count();
 
         int deletedSeeds = userRoleSeeds.RemoveAll(
             urs => _dbContext.UserRoles
                     .Any(ur => ur.RoleId == urs.RoleId && ur.UserId == urs.UserId));
 
-        if (deletedSeeds < userRoleSeeds.Count())
+        if (deletedSeeds < seedCount)
         {
             _dbContext.UserRoles.AddRange(userRoleSeeds);
             _dbContext.SaveChanges(); // blocking

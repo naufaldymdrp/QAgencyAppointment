@@ -108,7 +108,12 @@ public class AppointmentService : IAppointmentService
         }
 
         AppointmentDtoResponse appointmentDtoResponse = _mapper.Map<AppointmentDtoResponse>(currentAppointmentEntity);
-        appointmentDtoResponse.Users = userEntities.Select(x => _mapper.Map<UserDto>(x)).ToList();
+        appointmentDtoResponse.Users = userEntities.Select(x =>
+        {
+            var dto = _mapper.Map<UserDto>(x);
+            dto.Roles = _userRepository.GetRoleNamesByUserIdAsync(x.Id).Result.ToList();
+            return dto;
+        }).ToList();
         return appointmentDtoResponse;
     }
 
