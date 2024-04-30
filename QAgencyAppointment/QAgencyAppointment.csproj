@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <!-- AspNetCore-related packages -->
+    <PackageReference Include="Automapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4" />
@@ -20,6 +21,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SQLite" Version="8.0.4" />
 
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\QAgencyAppointment.DataAccess\QAgencyAppointment.DataAccess.csproj" />
+    <ProjectReference Include="..\QAgencyAppointment.Business\QAgencyAppointment.Business.csproj" />
   </ItemGroup>
 
 </Project>
